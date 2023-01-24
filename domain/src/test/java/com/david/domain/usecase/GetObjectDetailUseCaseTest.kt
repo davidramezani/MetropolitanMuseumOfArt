@@ -1,7 +1,7 @@
 package com.david.domain.usecase
 
 import com.david.domain.entity.MuseumObject
-import com.david.domain.repository.DetailRepository
+import com.david.domain.repository.GetObjectDetailRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -13,10 +13,10 @@ import org.mockito.kotlin.whenever
 
 class GetObjectDetailUseCaseTest {
 
-    private val detailRepository = mock<DetailRepository>()
+    private val getObjectDetailRepository = mock<GetObjectDetailRepository>()
     private val getObjectDetailUseCase = GetObjectDetailUseCase(
         mock(),
-        detailRepository
+        getObjectDetailRepository
     )
 
     @ExperimentalCoroutinesApi
@@ -31,7 +31,7 @@ class GetObjectDetailUseCaseTest {
             department = "",
             objectName = ""
         )
-        whenever(detailRepository.getObjectDetail(request.objectId)).thenReturn(flowOf(museumObject))
+        whenever(getObjectDetailRepository.getObjectDetail(request.objectId)).thenReturn(flowOf(museumObject))
         val response = getObjectDetailUseCase.process(request).first()
         assertEquals(GetObjectDetailUseCase.Response(museumObject), response)
     }
