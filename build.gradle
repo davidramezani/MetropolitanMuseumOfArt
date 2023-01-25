@@ -29,6 +29,7 @@ buildscript {
                 navVersion                      : "2.5.3",
                 hiltNavigationFragment          : "1.0.0",
                 junit                           : "4.13.2",
+                mockk                           : "1.12.2",
                 mockito                         : "4.0.0",
                 espressoJunit                   : "1.1.3",
                 espressoCore                    : "3.4.0"
@@ -82,9 +83,13 @@ buildscript {
                 datastore   : "androidx.datastore:datastore-preferences:${versions.datastore}"
         ]
         test = [
-                junit     : "junit:junit:${versions.junit}",
-                coroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}",
-                mockito   : "org.mockito.kotlin:mockito-kotlin:${versions.mockito}"
+                junit        : "junit:junit:${versions.junit}",
+                coroutines   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}",
+                mockito      : "org.mockito.kotlin:mockito-kotlin:${versions.mockito}",
+                mockitoCore  : "org.mockito:mockito-core:${versions.mockito}",
+                mockkCore    : "io.mockk:mockk:${versions.mockk}",
+                mockk        : "io.mockk:mockk-android:${versions.mockk}",
+                arch         : "androidx.arch.core:core-testing:${versions.arcVersion}"
         ]
         androidTest = [
                 junit       : "androidx.test.ext:junit:${versions.espressoJunit}",
