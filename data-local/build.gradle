@@ -41,6 +41,7 @@ dependencies {
     implementation persistence.roomRuntime
     implementation persistence.roomKtx
     kapt persistence.roomCompiler
+    implementation network.kotlinxSerializationJson
     implementation persistence.datastore
     implementation di.hiltAndroid
     kapt di.hiltCompiler
