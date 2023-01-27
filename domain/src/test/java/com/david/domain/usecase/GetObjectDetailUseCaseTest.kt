@@ -8,14 +8,15 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.kotlin.mock
+import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
+
 
 class GetObjectDetailUseCaseTest {
 
-    private val getObjectDetailRepository = mock<GetObjectDetailRepository>()
+    private val getObjectDetailRepository = mock(GetObjectDetailRepository::class.java)
     private val getObjectDetailUseCase = GetObjectDetailUseCase(
-        mock(),
+        mock(UseCase.Configuration::class.java),
         getObjectDetailRepository
     )
 
@@ -31,7 +32,11 @@ class GetObjectDetailUseCaseTest {
             department = "",
             objectName = ""
         )
-        whenever(getObjectDetailRepository.getObjectDetail(request.objectId)).thenReturn(flowOf(museumObject))
+        whenever(getObjectDetailRepository.getObjectDetail(request.objectId)).thenReturn(
+            flowOf(
+                museumObject
+            )
+        )
         val response = getObjectDetailUseCase.process(request).first()
         assertEquals(GetObjectDetailUseCase.Response(museumObject), response)
     }

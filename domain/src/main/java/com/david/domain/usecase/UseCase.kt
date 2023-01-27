@@ -18,7 +18,7 @@ abstract class UseCase<I : UseCase.Request, O : UseCase.Response>(private val co
 
     internal abstract fun process(request: I): Flow<O>
 
-    abstract class Configuration(val dispatcher: CoroutineDispatcher)
+    class Configuration(val dispatcher: CoroutineDispatcher)
 
     interface Request
 
