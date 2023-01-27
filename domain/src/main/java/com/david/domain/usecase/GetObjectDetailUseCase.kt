@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetObjectDetailUseCase @Inject constructor(
-    configuration: UseCase.Configuration,
+    configuration: Configuration,
     private val getObjectDetailRepository: GetObjectDetailRepository
 ) : UseCase<GetObjectDetailUseCase.Request, GetObjectDetailUseCase.Response>(configuration) {
 
