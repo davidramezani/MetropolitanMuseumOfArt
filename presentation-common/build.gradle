@@ -47,6 +47,7 @@ dependencies {
     api androidx.viewModel
     api androidx.viewModelSaveState
     api androidx.constraintLayout
+    api androidx.hiltNavigation
 
     implementation di.hiltAndroid
     kapt di.hiltCompiler
