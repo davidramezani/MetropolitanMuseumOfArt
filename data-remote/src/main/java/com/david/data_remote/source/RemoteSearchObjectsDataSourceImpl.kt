@@ -3,6 +3,7 @@ package com.david.data_remote.source
 import com.david.data_remote.networking.search.SearchApiModel
 import com.david.data_remote.networking.search.SearchService
 import com.david.data_repository.data_source.remote.RemoteSearchObjectsDataSource
+import com.david.domain.entity.SearchResult
 import com.david.domain.entity.UseCaseException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -14,7 +15,7 @@ class RemoteSearchObjectsDataSourceImpl @Inject constructor(
     private val searchService: SearchService
 ) : RemoteSearchObjectsDataSource {
 
-    override fun searchObjects(searchQuery: String): Flow<List<Int>> = flow {
+    override fun searchObjects(searchQuery: String): Flow<SearchResult> = flow {
         emit(searchService.searchObjects(searchQuery))
     }.map { searchApiModel ->
         convert(searchApiModel)
@@ -23,5 +24,5 @@ class RemoteSearchObjectsDataSourceImpl @Inject constructor(
     }
 
     private fun convert(searchApiModel: SearchApiModel) =
-        searchApiModel.objectIDs
+        SearchResult(searchApiModel.total, searchApiModel.objectIDs)
 }

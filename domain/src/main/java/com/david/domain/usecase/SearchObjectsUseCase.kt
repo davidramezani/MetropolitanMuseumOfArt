@@ -1,5 +1,6 @@
 package com.david.domain.usecase
 
+import com.david.domain.entity.SearchResult
 import com.david.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -17,5 +18,5 @@ class SearchObjectsUseCase @Inject constructor(
             }
 
     data class Request(val searchQuery: String) : UseCase.Request
-    data class Response(val objectIds: List<Int>) : UseCase.Response
+    data class Response(val searchResult: SearchResult) : UseCase.Response
 }
