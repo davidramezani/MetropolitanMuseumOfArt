@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_hint">search</string>
+    <string name="search_placeholder">Please enter minimum 3 character</string>
+    <string name="search_item_label">Object : </string>
+</resources>
