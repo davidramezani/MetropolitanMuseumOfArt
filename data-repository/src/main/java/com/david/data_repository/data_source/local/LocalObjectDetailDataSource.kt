@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalObjectDetailDataSource {
 
-    fun getObjectDetail(objectId: Int): Flow<MuseumObject>
+    fun getObjectDetail(objectId: Int): Flow<MuseumObject?>
 
     suspend fun addObjectDetail(museumObject: MuseumObject)
 }
