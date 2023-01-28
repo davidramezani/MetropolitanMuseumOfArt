@@ -24,13 +24,19 @@ class RemoteObjectDetailDataSourceImpl @Inject constructor(
     }
 
     private fun convert(museumObjectApiModel: MuseumObjectApiModel) =
-        MuseumObject(
-            objectID = museumObjectApiModel.objectID,
-            primaryImage = museumObjectApiModel.primaryImage,
-            primaryImageSmall = museumObjectApiModel.primaryImageSmall,
-            additionalImages = museumObjectApiModel.additionalImages,
-            department = museumObjectApiModel.department,
-            objectName = museumObjectApiModel.objectName
-        )
+        museumObjectApiModel.run {
+            MuseumObject(
+                objectID = objectID,
+                primaryImage = primaryImage,
+                primaryImageSmall = primaryImageSmall,
+                additionalImages = additionalImages,
+                department = department,
+                objectName = objectName,
+                title = title,
+                medium = medium,
+                artist = artistDisplayName,
+                artistBio = artistDisplayBio
+            )
+        }
 
 }
