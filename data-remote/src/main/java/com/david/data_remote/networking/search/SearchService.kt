@@ -5,6 +5,6 @@ import retrofit2.http.Query
 
 interface SearchService {
 
-    @GET("/search")
+    @GET("public/collection/v1/search")
     suspend fun searchObjects(@Query("q") searchQuery : String) : SearchApiModel
 }

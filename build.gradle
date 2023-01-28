@@ -73,6 +73,7 @@ buildscript {
         ]
         network = [
                 okHttp                     : "com.squareup.okhttp3:okhttp:${versions.okHttp}",
+                logger                     : "com.squareup.okhttp3:logging-interceptor:${versions.okHttp}",
                 retrofit                   : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
                 retrofitKotlinSerialization: "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${versions.retrofitKotlinxSerializationJson}",
                 kotlinxSerializationJson   : "org.jetbrains.kotlinx:kotlinx-serialization-json:${versions.kotlinxSerializationJson}"
