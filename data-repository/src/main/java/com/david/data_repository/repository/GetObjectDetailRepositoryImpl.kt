@@ -4,9 +4,7 @@ import com.david.data_repository.data_source.local.LocalObjectDetailDataSource
 import com.david.data_repository.data_source.remote.RemoteObjectDetailDataSource
 import com.david.domain.entity.MuseumObject
 import com.david.domain.repository.GetObjectDetailRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class GetObjectDetailRepositoryImpl @Inject constructor(
@@ -14,15 +12,17 @@ class GetObjectDetailRepositoryImpl @Inject constructor(
     private val remoteObjectDetailDataSource: RemoteObjectDetailDataSource
 ) : GetObjectDetailRepository {
 
-    override fun getObjectDetail(objectId: Int): Flow<MuseumObject> =
-        localObjectDetailDataSource.getObjectDetail(objectId)
-            .onStart {
-                refreshUser(objectId)
-            }
+    override fun getObjectDetail(objectId: Int): Flow<MuseumObject> {
+        val result = localObjectDetailDataSource.getObjectDetail(objectId)
 
-    private fun refreshUser(objectId: Int): Flow<MuseumObject> =
-        remoteObjectDetailDataSource.getObjectDetail(objectId)
+        return remoteObjectDetailDataSource.getObjectDetail(objectId)
+            .onStart {
+                result.first()?.let {
+                    emit(it)
+                }
+            }
             .onEach {
                 localObjectDetailDataSource.addObjectDetail(it)
             }
+    }
 }
