@@ -24,8 +24,8 @@ class LocalObjectDetailDataSourceImplTest {
     @Test
     fun testGetObjectDetail() = runTest {
         val id = 1
-        val museumObjectEntity = MuseumObjectEntity(1,"","", listOf(),"","")
-        val expectedMuseumObject = MuseumObject(1,"","", listOf(),"","")
+        val museumObjectEntity = MuseumObjectEntity(1, "", "", listOf(), "Arts", "Dish", "sunflower", "porcelain", "Chelsea", "British")
+        val expectedMuseumObject = MuseumObject(1, "", "", listOf(), "Arts", "Dish", "sunflower", "porcelain", "Chelsea", "British")
         whenever(detailDao.getObjectDetail(id)).thenReturn(flowOf(museumObjectEntity))
         val result = detailObjectDataSource.getObjectDetail(id).first()
         Assert.assertEquals(expectedMuseumObject, result)
@@ -34,8 +34,8 @@ class LocalObjectDetailDataSourceImplTest {
     @ExperimentalCoroutinesApi
     @Test
     fun testAddObjectDetail() = runTest {
-        val museumObject = MuseumObject(1,"","", listOf(),"","")
-        val museumObjectEntity = MuseumObjectEntity(1,"","", listOf(),"","")
+        val museumObject = MuseumObject(1, "", "", listOf(), "Arts", "Dish", "sunflower", "porcelain", "Chelsea", "British")
+        val museumObjectEntity = MuseumObjectEntity(1, "", "", listOf(), "Arts", "Dish", "sunflower", "porcelain", "Chelsea", "British")
         detailObjectDataSource.addObjectDetail(museumObject)
         verify(detailDao).insertObjectDetail(museumObjectEntity)
     }
