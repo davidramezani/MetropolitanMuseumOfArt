@@ -19,7 +19,7 @@ class DetailViewModel @Inject constructor(
     private val getObjectDetailUseCase: GetObjectDetailUseCase,
 ) : ViewModel() {
 
-    private val objectId = savedStateHandle.get<Int>("objectId") ?: 1
+    private val objectId = savedStateHandle.get<Int>("objectId")!!
     private val _museumObjectFlow = MutableStateFlow<UiState<MuseumObjectModel>>(UiState.Loading)
     val museumObjectFlow: StateFlow<UiState<MuseumObjectModel>> = _museumObjectFlow
 
