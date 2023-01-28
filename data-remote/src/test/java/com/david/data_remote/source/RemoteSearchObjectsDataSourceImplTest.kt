@@ -2,6 +2,7 @@ package com.david.data_remote.source
 
 import com.david.data_remote.networking.search.SearchApiModel
 import com.david.data_remote.networking.search.SearchService
+import com.david.domain.entity.SearchResult
 import com.david.domain.entity.UseCaseException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
@@ -24,8 +25,8 @@ class RemoteSearchObjectsDataSourceImplTest {
     @Test
     fun testSearchObjects() = runTest {
         val searchQuery = "sunflower"
-        val remoteSearchObjects = SearchApiModel(listOf(1, 2, 3))
-        val expectedSearchObjects = listOf(1, 2, 3)
+        val remoteSearchObjects = SearchApiModel(10, listOf(1, 2, 3))
+        val expectedSearchObjects = SearchResult(10, listOf(1, 2, 3))
         whenever(searchService.searchObjects(searchQuery)).thenReturn(remoteSearchObjects)
         val result = remoteSearchObjectsDataSource.searchObjects(searchQuery).first()
         Assert.assertEquals(expectedSearchObjects, result)

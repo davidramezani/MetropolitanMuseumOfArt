@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.david.metropolitanmuseumofart.presentation_detail.DetailViewModel" />
+
+        <import type="com.david.metropolitanmuseumofart.presentation_common.state.UiState" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_back_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/white"
+            tools:background="@drawable/text_background_shadow" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_image_slider"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="@{vm.museumObjectFlow instanceof UiState.Success ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imv_title_background_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/text_background_shadow"
+            android:visibility="@{vm.museumObjectFlow instanceof UiState.Success ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/vp_image_slider"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_object_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:textColor="?colorOnPrimary"
+            android:textSize="18sp"
+            android:visibility="@{vm.museumObjectFlow instanceof UiState.Success ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/imv_title_background_shadow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imv_title_background_shadow"
+            tools:text="Botanical dish with white sunflower" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.museumObjectFlow instanceof UiState.Success ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/imv_title_background_shadow">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp">
+
+                <TextView
+                    android:id="@+id/tv_object_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/object_name_label"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_object_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="14sp"
+                    tools:text="Dish" />
+
+                <TextView
+                    android:id="@+id/tv_department_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/department_label"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_department"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="14sp"
+                    tools:text="European Sculpture and Decorative Arts" />
+
+                <TextView
+                    android:id="@+id/tv_artist_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/artist_label"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_artist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="14sp"
+                    tools:text="Chelsea Porcelain Manufactory" />
+
+                <TextView
+                    android:id="@+id/tv_artistBio_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/artist_bio_label"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_artistBio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="14sp"
+                    tools:text="British, 1745–1784, Red Anchor Period, ca. 1753–58" />
+
+                <TextView
+                    android:id="@+id/tv_medium_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/medium_label"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="14sp"
+                    tools:text="Soft-paste porcelain" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="@{vm.museumObjectFlow instanceof UiState.Loading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.museumObjectFlow instanceof UiState.Error ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Something is wrong!!!"
+            tools:text="error_message" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -5,6 +5,6 @@ import retrofit2.http.Path
 
 interface DetailService {
 
-    @GET("/objects/{objectID}")
+    @GET("public/collection/v1/objects/{objectID}")
     suspend fun getObjectDetail(@Path("objectID") objectId: Int): MuseumObjectApiModel
 }

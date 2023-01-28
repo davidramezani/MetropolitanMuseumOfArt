@@ -27,7 +27,7 @@ buildscript {
                 room                            : "2.4.0",
                 datastore                       : "1.0.0",
                 navVersion                      : "2.5.3",
-                hiltNavigationFragment          : "1.0.0",
+                hiltNavigation                  : "1.0.0",
                 junit                           : "4.13.2",
                 mockk                           : "1.12.2",
                 mockito                         : "4.0.0",
@@ -53,6 +53,7 @@ buildscript {
                 viewModelSaveState : "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions.lifecycleVersion}",
                 navigationFragment : "androidx.navigation:navigation-fragment-ktx:${versions.navVersion}",
                 navigationUI       : "androidx.navigation:navigation-ui-ktx:${versions.navVersion}",
+                hiltNavigation     : "androidx.hilt:hilt-navigation:${versions.hiltNavigation}",
                 testNavigation     : "androidx.navigation:navigation-testing:${versions.navVersion}"
         ]
         material = [
@@ -64,14 +65,15 @@ buildscript {
                 okHttp  : "com.github.bumptech.glide:okhttp3-integration:${versions.glide}",
         ]
         coroutines = [
-                coroutinesAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
+                coroutinesAndroid : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
         ]
         di = [
-                hiltAndroid : "com.google.dagger:hilt-android:${versions.hilt}",
-                hiltCompiler: "com.google.dagger:hilt-compiler:${versions.hilt}"
+                hiltAndroid    : "com.google.dagger:hilt-android:${versions.hilt}",
+                hiltCompiler   : "com.google.dagger:hilt-compiler:${versions.hilt}",
         ]
         network = [
                 okHttp                     : "com.squareup.okhttp3:okhttp:${versions.okHttp}",
+                logger                     : "com.squareup.okhttp3:logging-interceptor:${versions.okHttp}",
                 retrofit                   : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
                 retrofitKotlinSerialization: "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${versions.retrofitKotlinxSerializationJson}",
                 kotlinxSerializationJson   : "org.jetbrains.kotlinx:kotlinx-serialization-json:${versions.kotlinxSerializationJson}"

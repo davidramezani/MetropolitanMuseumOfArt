@@ -11,5 +11,7 @@ data class MuseumObjectApiModel(
     val department : String,
     val objectName : String,
     val title : String,
-    val medium : String
+    val medium : String,
+    val artistDisplayName : String,
+    val artistDisplayBio : String
 )

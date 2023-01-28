@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.david.presentation_search'
+    namespace 'com.david.metropolitanmuseumofart.presentation_search'
     compileSdk defaultCompileSdkVersion
 
     defaultConfig {
@@ -31,6 +31,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = jvmTarget
+    }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
 }
 

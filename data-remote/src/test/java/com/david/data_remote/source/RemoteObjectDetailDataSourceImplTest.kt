@@ -24,8 +24,8 @@ class RemoteObjectDetailDataSourceImplTest {
     @Test
     fun testGetObjectDetail() = runTest {
         val id = 1
-        val remoteMuseumObject = MuseumObjectApiModel(1, "", "", listOf(), "", "", "", "")
-        val expectedMuseumObject = MuseumObject(1, "", "", listOf(), "", "")
+        val remoteMuseumObject = MuseumObjectApiModel(1, "", "", listOf(), "Arts", "Dish", "sunflower", "porcelain", "Chelsea", "British")
+        val expectedMuseumObject = MuseumObject(1, "", "", listOf(), "Arts", "Dish", "sunflower", "porcelain", "Chelsea", "British")
         whenever(detailService.getObjectDetail(id)).thenReturn(remoteMuseumObject)
         val result = objectDetailDataSource.getObjectDetail(id).first()
         Assert.assertEquals(expectedMuseumObject, result)
