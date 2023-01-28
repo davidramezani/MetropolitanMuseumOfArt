@@ -11,5 +11,9 @@ data class MuseumObjectEntity(
     val primaryImageSmall : String,
     val additionalImages : List<String>,
     val department : String,
-    val objectName : String
+    val objectName : String,
+    val title : String,
+    val medium : String,
+    val artist : String,
+    val artistBio : String
 )

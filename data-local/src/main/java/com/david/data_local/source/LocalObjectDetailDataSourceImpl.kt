@@ -19,7 +19,11 @@ class LocalObjectDetailDataSourceImpl @Inject constructor(
                 primaryImageSmall = it.primaryImageSmall,
                 additionalImages = it.additionalImages,
                 department = it.department,
-                objectName = it.objectName
+                objectName = it.objectName,
+                title = it.title,
+                medium = it.medium,
+                artist = it.artist,
+                artistBio = it.artistBio
             )
         }
 
@@ -30,7 +34,11 @@ class LocalObjectDetailDataSourceImpl @Inject constructor(
             primaryImageSmall = museumObject.primaryImageSmall,
             additionalImages = museumObject.additionalImages,
             department = museumObject.department,
-            objectName = museumObject.objectName
+            objectName = museumObject.objectName,
+            title = museumObject.title,
+            medium = museumObject.medium,
+            artist = museumObject.artist,
+            artistBio = museumObject.artistBio
         )
     )
 }

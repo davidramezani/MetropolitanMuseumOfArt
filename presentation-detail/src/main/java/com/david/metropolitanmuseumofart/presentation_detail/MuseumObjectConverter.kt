@@ -16,10 +16,10 @@ class MuseumObjectConverter @Inject constructor() :
                 additionalImages = additionalImages,
                 department = department,
                 objectName = objectName,
-                title = "",
-                medium = "",
-                artist = "",
-                artistBio = ""
+                title = title,
+                medium = medium,
+                artist = artist,
+                artistBio = artistBio
             )
         }
     }
