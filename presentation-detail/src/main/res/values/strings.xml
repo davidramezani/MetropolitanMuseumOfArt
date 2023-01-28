@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="object_name_label">Object Name : </string>
+    <string name="department_label">Department : </string>
+    <string name="artist_label">Artist : </string>
+    <string name="artist_bio_label">Artist Bio : </string>
+    <string name="medium_label">Medium : </string>
+</resources>

@@ -40,6 +40,7 @@ dependencies {
     implementation(project(path: ":data-repository"))
     implementation coroutines.coroutinesAndroid
     implementation network.okHttp
+    implementation network.logger
     implementation network.retrofit
     implementation network.retrofitKotlinSerialization
     implementation network.kotlinxSerializationJson
