@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.david.metropolitanmuseumofart.presentation_common.extensions.collectLatestLifecycleFlow
 import com.david.metropolitanmuseumofart.presentation_common.state.UiState
 import com.david.metropolitanmuseumofart.presentation_search.databinding.FragmentSearchBinding
@@ -47,7 +49,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun setupRecyclerView() {
         searchListAdapter = SearchListAdapter(object : SearchListAdapter.OnItemClickListener {
             override fun onItemClick(item: SearchedListItemModel) {
-                //call related viewModel method
+                findNavController().navigate("metropolitanmuseumofart.com://detail?objectId=${item.id}".toUri())
             }
         })
         binding.rvSearchedItemsSearchFragment.adapter = searchListAdapter
