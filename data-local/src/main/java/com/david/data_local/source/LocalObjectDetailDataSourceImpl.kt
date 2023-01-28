@@ -11,20 +11,22 @@ import javax.inject.Inject
 class LocalObjectDetailDataSourceImpl @Inject constructor(
     private val detailDao: DetailDao
 ) : LocalObjectDetailDataSource {
-    override fun getObjectDetail(objectId: Int): Flow<MuseumObject> =
+    override fun getObjectDetail(objectId: Int): Flow<MuseumObject?> =
         detailDao.getObjectDetail(objectId).map {
-            MuseumObject(
-                objectID = it.objectID,
-                primaryImage = it.primaryImage,
-                primaryImageSmall = it.primaryImageSmall,
-                additionalImages = it.additionalImages,
-                department = it.department,
-                objectName = it.objectName,
-                title = it.title,
-                medium = it.medium,
-                artist = it.artist,
-                artistBio = it.artistBio
-            )
+            it?.let {
+                MuseumObject(
+                    objectID = it.objectID,
+                    primaryImage = it.primaryImage,
+                    primaryImageSmall = it.primaryImageSmall,
+                    additionalImages = it.additionalImages,
+                    department = it.department,
+                    objectName = it.objectName,
+                    title = it.title,
+                    medium = it.medium,
+                    artist = it.artist,
+                    artistBio = it.artistBio
+                )
+            }
         }
 
     override suspend fun addObjectDetail(museumObject: MuseumObject) = detailDao.insertObjectDetail(
