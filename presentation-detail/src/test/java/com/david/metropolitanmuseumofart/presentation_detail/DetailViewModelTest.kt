@@ -30,7 +30,7 @@ class DetailViewModelTest {
     private lateinit var useCase: GetObjectDetailUseCase
 
     @RelaxedMockK
-    private lateinit var converter: MuseumObjectConverter
+    private lateinit var converter: DetailConverter
 
     private lateinit var viewModel: DetailViewModel
 
@@ -57,7 +57,7 @@ class DetailViewModelTest {
     @Test
     fun testGetMuseumObject() {
         assertEquals(UiState.Loading, viewModel.museumObjectFlow.value)
-        val uiState = mockk<UiState<MuseumObjectModel>>()
+        val uiState = mockk<UiState<DetailModel>>()
         val result = mockk<Result<GetObjectDetailUseCase.Response>>()
         every { useCase.execute(GetObjectDetailUseCase.Request(objectId)) }.returns(flowOf(result))
         every { converter.convert(result) }.returns(uiState)

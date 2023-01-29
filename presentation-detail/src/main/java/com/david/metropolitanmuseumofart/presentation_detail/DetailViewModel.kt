@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val museumObjectConverter: MuseumObjectConverter,
+    private val detailConverter: DetailConverter,
     private val getObjectDetailUseCase: GetObjectDetailUseCase,
 ) : ViewModel() {
 
