@@ -27,13 +27,16 @@
             android:focusable="true"
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back"
-            app:tint="@color/white"
-            tools:background="@drawable/text_background_shadow" />
+            android:elevation="5dp"
+            android:background="@drawable/circle_background"
+            android:onClick="@{() -> vm.backIconClicked()}"/>
 
-        <androidx.viewpager2.widget.ViewPager2
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_image_slider"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -41,6 +44,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toTopOf="@id/imv_title_background_shadow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:elevation="4dp"/>
 
         <ImageView
             android:id="@+id/imv_title_background_shadow"
