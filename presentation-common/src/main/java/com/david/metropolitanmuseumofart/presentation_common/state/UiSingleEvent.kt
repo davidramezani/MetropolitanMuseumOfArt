@@ -1,0 +1,3 @@
+package com.david.metropolitanmuseumofart.presentation_common.state
+
+interface UiSingleEvent
