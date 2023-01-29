@@ -20,10 +20,9 @@ class SearchViewModel @Inject constructor(
     val searchedListFlow: StateFlow<UiState<SearchedListModel>> = _searchedListFlow
 
     private var searchJob: Job? = null
-    private val searchQuery: String = ""
 
     fun search(searchQuery: String) {
-        if (searchQuery.isNotEmpty()) {
+        if (searchQuery.isNotEmpty() && searchQuery.length >= 3) {
             searchJob?.cancel()
             searchJob = viewModelScope.launch {
                 _searchedListFlow.value = UiState.Loading

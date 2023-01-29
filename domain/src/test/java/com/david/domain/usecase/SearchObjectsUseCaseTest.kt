@@ -1,21 +1,22 @@
 package com.david.domain.usecase
 
+import com.david.domain.entity.SearchResult
 import com.david.domain.repository.SearchRepository
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito.mock
-import org.mockito.kotlin.whenever
 
 
 class SearchObjectsUseCaseTest {
 
-    private val searchRepository = mock(SearchRepository::class.java)
+    private val searchRepository = mockk<SearchRepository>()
     private val searchObjectsUseCase = SearchObjectsUseCase(
-        mock(UseCase.Configuration::class.java),
+        mockk(),
         searchRepository
     )
 
@@ -23,10 +24,10 @@ class SearchObjectsUseCaseTest {
     @Test
     fun testProcess() = runTest {
         val request = SearchObjectsUseCase.Request("sunflower")
-        val objectIds = listOf(1, 2, 3)
-        whenever(searchRepository.searchObjectIDs(request.searchQuery)).thenReturn(flowOf(objectIds))
+        val searchResult = SearchResult(3, listOf(1, 2, 3))
+        every{searchRepository.searchObjectIDs(request.searchQuery)} returns flowOf(searchResult)
         val response = searchObjectsUseCase.process(request).first()
-        assertEquals(SearchObjectsUseCase.Response(objectIds), response)
+        assertEquals(SearchObjectsUseCase.Response(searchResult), response)
     }
 
 }

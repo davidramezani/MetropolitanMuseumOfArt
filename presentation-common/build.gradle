@@ -52,5 +52,4 @@ dependencies {
     implementation di.hiltAndroid
     kapt di.hiltCompiler
     testImplementation test.junit
-    testImplementation test.mockito
 }
