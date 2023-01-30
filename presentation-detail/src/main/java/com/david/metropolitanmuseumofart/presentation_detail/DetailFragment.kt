@@ -14,7 +14,7 @@ import com.david.metropolitanmuseumofart.presentation_detail.databinding.Fragmen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailFragment : Fragment(R.layout.fragment_detail) {
+class DetailFragment : Fragment() {
 
     private val viewModel: DetailViewModel by viewModels()
     private var _binding: FragmentDetailBinding? = null
