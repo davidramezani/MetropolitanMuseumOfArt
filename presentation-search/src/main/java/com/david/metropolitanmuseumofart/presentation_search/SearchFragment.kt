@@ -64,9 +64,16 @@ class SearchFragment : Fragment() {
     private fun observeUiState() {
         collectLatestLifecycleFlow(viewModel.searchedListFlow) { uiState ->
             if (uiState is UiState.Success) {
+                updateUI(uiState.data)
                 searchListAdapter.submitList(uiState.data.items)
+            } else if(uiState is UiState.Error) {
+                binding.tvErrorMessage.text = uiState.errorMessage
             }
         }
+    }
+
+    private fun updateUI(searchedListModel: SearchedListModel) {
+        binding.tvSearchTotalResult.text = searchedListModel.totalItems
     }
 
     private fun resetPosition() {

@@ -3,4 +3,5 @@
     <string name="search_hint">search</string>
     <string name="search_placeholder">Please enter minimum 3 character</string>
     <string name="search_item_label">Object : </string>
+    <string name="total_number_of_ids">TotalItems : %s</string>
 </resources>
