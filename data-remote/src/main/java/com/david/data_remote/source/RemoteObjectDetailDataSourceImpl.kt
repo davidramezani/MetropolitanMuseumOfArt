@@ -17,9 +17,8 @@ class RemoteObjectDetailDataSourceImpl @Inject constructor(
     private val detailService: DetailService
 ) : RemoteObjectDetailDataSource {
 
-    override suspend fun getObjectDetail(objectId: Int): MuseumObject = withContext(Dispatchers.IO){
+    override suspend fun getObjectDetail(objectId: Int): MuseumObject =
         convert(detailService.getObjectDetail(objectId))
-    }
     private fun convert(museumObjectApiModel: MuseumObjectApiModel) =
         museumObjectApiModel.run {
             MuseumObject(
