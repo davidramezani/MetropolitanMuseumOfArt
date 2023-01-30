@@ -12,10 +12,10 @@ class GetObjectDetailUseCase @Inject constructor(
 ) : UseCase<GetObjectDetailUseCase.Request, GetObjectDetailUseCase.Response>(configuration) {
 
     override fun process(request: Request): Flow<Response> =
-        getObjectDetailRepository.getObjectDetail(request.objectId)
-            .map {
-                Response(it)
-            }
+        getObjectDetailRepository.getObjectDetail(request.objectId).map {
+            Response(it)
+        }
+
 
     data class Request(val objectId: Int) : UseCase.Request
     data class Response(val museumObject: MuseumObject) : UseCase.Response

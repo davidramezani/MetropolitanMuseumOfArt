@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface RemoteObjectDetailDataSource {
 
-    fun getObjectDetail(objectId: Int): Flow<MuseumObject>
+   suspend fun getObjectDetail(objectId: Int): MuseumObject
 }
