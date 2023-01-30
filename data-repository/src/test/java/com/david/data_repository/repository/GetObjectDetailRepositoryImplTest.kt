@@ -25,7 +25,7 @@ class GetObjectDetailRepositoryImplTest {
     fun testGetObjectDetail() = runTest {
         val id = 1
         val museumObject = MuseumObject(
-            objectID = 1,
+            objectID = id,
             primaryImage = "",
             primaryImageSmall = "",
             additionalImages = listOf(),
