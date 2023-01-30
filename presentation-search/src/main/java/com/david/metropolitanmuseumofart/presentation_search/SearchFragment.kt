@@ -8,17 +8,14 @@ import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.david.metropolitanmuseumofart.presentation_common.extensions.collectLatestLifecycleFlow
 import com.david.metropolitanmuseumofart.presentation_common.state.UiState
 import com.david.metropolitanmuseumofart.presentation_search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(R.layout.fragment_search) {
+class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by viewModels()
     private var _binding: FragmentSearchBinding? = null
@@ -47,9 +44,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun setupRecyclerView() {
-        searchListAdapter = SearchListAdapter(object : SearchListAdapter.OnItemClickListener {
+        searchListAdapter = SearchListAdapter(object : SearchListAdapter.OnListeners {
             override fun onItemClick(item: SearchedListItemModel) {
                 findNavController().navigate("metropolitanmuseumofart.com://detail?objectId=${item.id}".toUri())
+            }
+            override fun onListChange() {
+                resetPosition()
             }
         })
         binding.rvSearchedItemsSearchFragment.adapter = searchListAdapter
@@ -57,7 +57,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun setSearchTextWatcher() {
         binding.etSearch.doOnTextChanged { text, _, _, _ ->
-            viewModel.search(text.toString())
+            viewModel.onSearchQueryChange(text.toString())
         }
     }
 
@@ -65,16 +65,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         collectLatestLifecycleFlow(viewModel.searchedListFlow) { uiState ->
             if (uiState is UiState.Success) {
                 searchListAdapter.submitList(uiState.data.items)
-                resetPosition()
             }
         }
     }
 
     private fun resetPosition() {
-        lifecycleScope.launch {
-            delay(500)
-            binding.rvSearchedItemsSearchFragment.scrollToPosition(0)
-        }
+        binding.rvSearchedItemsSearchFragment.scrollToPosition(0)
     }
 
     override fun onDestroyView() {

@@ -6,10 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.david.metropolitanmuseumofart.presentation_search.R
 import com.david.metropolitanmuseumofart.presentation_search.databinding.ListSearchItemBinding
 
 class SearchListAdapter(
-    private val onItemClickListener : OnItemClickListener
+    private val onListeners: OnListeners,
 ) : ListAdapter<SearchedListItemModel, SearchListAdapter.ViewHolder>(MyItemDiffCallback()) {
 
     class ViewHolder(private val binding: ListSearchItemBinding) :
@@ -33,7 +34,7 @@ class SearchListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
-            onItemClickListener.onItemClick(getItem(position))
+            onListeners.onItemClick(getItem(position))
         }
     }
 
@@ -57,8 +58,16 @@ class SearchListAdapter(
         }
     }
 
-    interface OnItemClickListener {
+    override fun onCurrentListChanged(
+        previousList: MutableList<SearchedListItemModel>,
+        currentList: MutableList<SearchedListItemModel>
+    ) {
+        super.onCurrentListChanged(previousList, currentList)
+    }
+
+    interface OnListeners {
         fun onItemClick(item: SearchedListItemModel)
+        fun onListChange()
     }
 
 }
