@@ -1,5 +1,6 @@
-# Android Clean MVVM architecture
+# Metropolitan Museum Of Art - Android Clean MVVM architecture
 
+An Android app to browse through the gallery of the Metropolitan Museum of Art (MET) using their public API.
 
 The solution is designed using the latest tools and libraries, following the MVVM, Clean Architecture, and Clean Code principles. The structure is multi-module, with the following key features:
 
