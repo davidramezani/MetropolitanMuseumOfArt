@@ -1,14 +1,14 @@
 # Android Clean MVVM architecture
 
 
-The solution is built in a multi-module structure and attempts to use the latest tools and libraries. In summary:
+The solution is designed using the latest tools and libraries, following the MVVM, Clean Architecture, and Clean Code principles. The structure is multi-module, with the following key features:
 
-* Entirely written in Kotlin.
-* Uses MVVM Architecture, Clean Architecture, and Clean Code.
-* Uses Room as data persistence and Retrofit for network request handling.
-* Uses Kotlin Coroutines throughout threading.
-* Uses Hilt for dependency injection
-* Uses Material Design Library
+* Written in Kotlin
+* Uses MVVM Architecture, Clean Architecture, and Clean Code
+* Room for data persistence and Retrofit for network requests
+* Kotlin Coroutines for threading
+* Hilt for dependency injection
+* Material Design Library for UI design
 
 ### The basic flow looks like this :
 
@@ -16,14 +16,11 @@ The solution is built in a multi-module structure and attempts to use the latest
  <img src='https://github.com/davidramezani/MetropolitanMuseumOfArt/blob/develop/images/data_flow.png' width='500'>
 </p>
 
-The Repository layer handles data operations. The app's data comes from a few different sources -
-data is stored (either remotely or in a local cache for offline use), and the repository modules are
-responsible for handling all data operations and abstracting the data sources from the rest of the
-app.
+The Repository layer is responsible for managing data operations, including data storage and retrieval from multiple sources. It abstracts the data sources from the rest of the app, ensuring clean separation of concerns.
 
-A lightweight domain layer sits between the data layer and the presentation layer and handles
-discrete pieces of business logic off the UI thread.
-### Technologies which I used in this project:
+The domain layer acts as a bridge between the data and presentation layers, executing business logic in a separate thread from the UI. This helps to maintain a clean separation of concerns, improves performance, and ensures a smooth user experience.
+
+### The following technologies are used in the project:
 * Retrofit
 * Glide
 * Room
@@ -34,7 +31,7 @@ discrete pieces of business logic off the UI thread.
 * Hilt
 * MVVM
 
-## TODO :
+## Future Work:
 * Add UI Tests
 * Add Other types of Exception For Network & Database Errors
 * Display proper error messages related to exceptions
