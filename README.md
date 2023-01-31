@@ -22,9 +22,6 @@ data is stored (either remotely or in a local cache for offline use), and the re
 responsible for handling all data operations and abstracting the data sources from the rest of the
 app.
 
-The app uses an offline first algorithm. If online data can't be requested, but offline data is
-available, use the offline data.
-
 A lightweight domain layer sits between the data layer and the presentation layer and handles
 discrete pieces of business logic off the UI thread.
 ### Technologies which i used in this project:
@@ -38,7 +35,6 @@ discrete pieces of business logic off the UI thread.
 * Hilt
 * MVVM
 
-## Sum up
-
-For the purpose of providing an overview of my solution, I have only included general information in
-this document
+## TODO :
+* Add Espresso, Instrumentation
+* Add Other type of Exception For Network & Database Errors
