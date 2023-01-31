@@ -2,21 +2,21 @@ package com.david.domain.usecase
 
 import com.david.domain.entity.MuseumObject
 import com.david.domain.repository.GetObjectDetailRepository
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito.mock
-import org.mockito.kotlin.whenever
 
 
 class GetObjectDetailUseCaseTest {
 
-    private val getObjectDetailRepository = mock(GetObjectDetailRepository::class.java)
+    private val getObjectDetailRepository = mockk<GetObjectDetailRepository>()
     private val getObjectDetailUseCase = GetObjectDetailUseCase(
-        mock(UseCase.Configuration::class.java),
+        mockk(),
         getObjectDetailRepository
     )
 
@@ -30,12 +30,14 @@ class GetObjectDetailUseCaseTest {
             primaryImageSmall = "",
             additionalImages = listOf(),
             department = "",
-            objectName = ""
+            objectName = "",
+            title = "",
+            medium = "",
+            artist = "",
+            artistBio = ""
         )
-        whenever(getObjectDetailRepository.getObjectDetail(request.objectId)).thenReturn(
-            flowOf(
-                museumObject
-            )
+        every { getObjectDetailRepository.getObjectDetail(request.objectId) } returns flowOf(
+            museumObject
         )
         val response = getObjectDetailUseCase.process(request).first()
         assertEquals(GetObjectDetailUseCase.Response(museumObject), response)

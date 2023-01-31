@@ -60,16 +60,19 @@ buildscript {
                 material: "com.google.android.material:material:${versions.material}"
         ]
         glide = [
-                core    : "com.github.bumptech.glide:glide:${versions.glide}",
+                core    : "com.github.bumptech.glide:glide:${versions.glid}",
                 compiler: "com.github.bumptech.glide:compiler:${versions.glid}",
-                okHttp  : "com.github.bumptech.glide:okhttp3-integration:${versions.glide}",
+                okHttp  : "com.github.bumptech.glide:okhttp3-integration:${versions.glid}",
+        ]
+        other = [
+                circleindicator: "me.relex:circleindicator:2.1.6"
         ]
         coroutines = [
-                coroutinesAndroid : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
+                coroutinesAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
         ]
         di = [
-                hiltAndroid    : "com.google.dagger:hilt-android:${versions.hilt}",
-                hiltCompiler   : "com.google.dagger:hilt-compiler:${versions.hilt}",
+                hiltAndroid : "com.google.dagger:hilt-android:${versions.hilt}",
+                hiltCompiler: "com.google.dagger:hilt-compiler:${versions.hilt}",
         ]
         network = [
                 okHttp                     : "com.squareup.okhttp3:okhttp:${versions.okHttp}",
@@ -85,13 +88,13 @@ buildscript {
                 datastore   : "androidx.datastore:datastore-preferences:${versions.datastore}"
         ]
         test = [
-                junit        : "junit:junit:${versions.junit}",
-                coroutines   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}",
-                mockito      : "org.mockito.kotlin:mockito-kotlin:${versions.mockito}",
-                mockitoCore  : "org.mockito:mockito-core:${versions.mockito}",
-                mockkCore    : "io.mockk:mockk:${versions.mockk}",
-                mockk        : "io.mockk:mockk-android:${versions.mockk}",
-                arch         : "androidx.arch.core:core-testing:${versions.arcVersion}"
+                junit      : "junit:junit:${versions.junit}",
+                coroutines : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}",
+                mockito    : "org.mockito.kotlin:mockito-kotlin:${versions.mockito}",
+                mockitoCore: "org.mockito:mockito-core:${versions.mockito}",
+                mockkCore  : "io.mockk:mockk:${versions.mockk}",
+                mockk      : "io.mockk:mockk-android:${versions.mockk}",
+                arch       : "androidx.arch.core:core-testing:${versions.arcVersion}"
         ]
         androidTest = [
                 junit       : "androidx.test.ext:junit:${versions.espressoJunit}",

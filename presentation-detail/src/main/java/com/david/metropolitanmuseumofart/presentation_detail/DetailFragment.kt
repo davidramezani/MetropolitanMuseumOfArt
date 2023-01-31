@@ -6,18 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.david.metropolitanmuseumofart.presentation_common.extensions.collectLatestLifecycleFlow
+import com.david.metropolitanmuseumofart.presentation_common.state.UiSingleEvent
 import com.david.metropolitanmuseumofart.presentation_common.state.UiState
-import com.david.presentation_detail.R
-import com.david.presentation_detail.databinding.FragmentDetailBinding
+import com.david.metropolitanmuseumofart.presentation_detail.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailFragment : Fragment(R.layout.fragment_detail) {
+class DetailFragment : Fragment() {
 
     private val viewModel: DetailViewModel by viewModels()
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+    private lateinit var imageSliderAdapter: ImageSliderAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +37,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeUiState()
+        observeUiSingleEvent()
     }
 
     private fun observeUiState() {
@@ -45,13 +48,31 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
-    private fun updateUI(data: MuseumObjectModel) {
+    private fun updateUI(data: DetailModel) {
         binding.apply {
+            tvObjectTitle.text = data.title
             tvObjectName.text = data.objectName
             tvDepartment.text = data.department
             tvArtist.text = data.artist
             tvArtistBio.text = data.artistBio
             tvMedium.text = data.medium
+            setupImageSlider(data.images)
+        }
+    }
+
+    private fun setupImageSlider(imageList: List<String>) {
+        imageSliderAdapter = ImageSliderAdapter(imageList)
+        binding.apply {
+            vpImageSlider.adapter = imageSliderAdapter
+        }
+        binding.indicator.setViewPager(binding.vpImageSlider)
+    }
+
+    private fun observeUiSingleEvent() {
+        collectLatestLifecycleFlow(viewModel.singleEventFlow) {
+            if(it is DetailSingleEvent.CloseDetailFragment) {
+                findNavController().navigateUp()
+            }
         }
     }
 

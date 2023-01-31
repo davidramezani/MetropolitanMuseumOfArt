@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.david.presentation_detail'
+    namespace 'com.david.metropolitanmuseumofart.presentation_detail'
     compileSdk defaultCompileSdkVersion
 
     defaultConfig {
@@ -47,7 +47,12 @@ dependencies {
     implementation coroutines.coroutinesAndroid
     implementation di.hiltAndroid
     kapt di.hiltCompiler
+    implementation glide.core
+    implementation glide.okHttp
+    kapt glide.compiler
+    implementation other.circleindicator
     testImplementation test.junit
     testImplementation test.coroutines
-    testImplementation test.mockito
+    testImplementation test.mockk
+    testImplementation test.mockkCore
 }

@@ -1,0 +1,40 @@
+# Android Clean MVVM architecture
+
+
+The solution is built in a multi-module structure and attempts to use the latest tools and libraries. In
+a summary:
+
+* Entirely written in Kotlin.
+* Uses MVVM Architecture, Clean Architecture, Clean Code.
+* Uses Room as data persistence, Retrofit for network request handling.
+* Uses Kotlin Coroutines throughout threading.
+* Uses Hilt for dependency injection
+* Uses Material design Library
+
+### The basic flow looks like this :
+
+<p align="center">
+ <img src='https://github.com/davidramezani/MetropolitanMuseumOfArt/blob/develop/images/data_flow.png' width='500'>
+</p>
+
+The Repository layer handles data operations. The app's data comes from a few different sources -
+data is stored (either remotely or in a local cache for offline use), and the repository modules are
+responsible for handling all data operations and abstracting the data sources from the rest of the
+app.
+
+A lightweight domain layer sits between the data layer and the presentation layer and handles
+discrete pieces of business logic off the UI thread.
+### Technologies which i used in this project:
+* Retrofit
+* Glide
+* Room
+* Navigation Component
+* Kotlin Coroutines
+* Kotlin Flow
+* ViewModel
+* Hilt
+* MVVM
+
+## TODO :
+* Add Espresso, Instrumentation
+* Add Other type of Exception For Network & Database Errors

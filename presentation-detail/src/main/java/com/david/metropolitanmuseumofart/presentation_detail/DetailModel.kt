@@ -1,10 +1,10 @@
 package com.david.metropolitanmuseumofart.presentation_detail
 
-data class MuseumObjectModel(
+data class DetailModel(
     val objectID : Int,
     val primaryImage : String,
+    val images : List<String>,
     val primaryImageSmall : String,
-    val additionalImages : List<String>,
     val department : String,
     val objectName : String,
     val title : String,

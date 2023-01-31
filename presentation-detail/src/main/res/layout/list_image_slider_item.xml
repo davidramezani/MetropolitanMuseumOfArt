@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="imageUrl"
+            type="String" />
+        <import type="com.david.metropolitanmuseumofart.presentation_detail.R" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imv_slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            imageUrl="@{imageUrl}"
+            placeHolder="@{R.drawable.ic_placholder}"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

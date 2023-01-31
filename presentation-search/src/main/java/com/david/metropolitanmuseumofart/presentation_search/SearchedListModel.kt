@@ -1,7 +1,7 @@
 package com.david.metropolitanmuseumofart.presentation_search
 
 data class SearchedListModel(
-    val totalItems : Long,
+    val totalItems : String,
     val items : List<SearchedListItemModel>
 )
 

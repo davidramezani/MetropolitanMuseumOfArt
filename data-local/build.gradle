@@ -47,5 +47,6 @@ dependencies {
     kapt di.hiltCompiler
     testImplementation test.junit
     testImplementation test.coroutines
-    testImplementation test.mockito
+    testImplementation test.mockk
+    testImplementation test.mockkCore
 }
