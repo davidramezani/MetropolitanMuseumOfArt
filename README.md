@@ -14,7 +14,7 @@ a summary:
 ### The basic flow looks like this :
 
 <p align="center">
- <img src='https://user-images.githubusercontent.com/45559398/172233712-a350738b-453d-415d-a9e2-71838dad82d5.png' width='500'>
+ <img src='https://github.com/davidramezani/MetropolitanMuseumOfArt/blob/develop/images/data_flow.png' width='500'>
 </p>
 
 The Repository layer handles data operations. The app's data comes from a few different sources -
