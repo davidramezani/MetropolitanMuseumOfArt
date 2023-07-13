@@ -1,7 +1,8 @@
 package com.david.metropolitanmuseumofart.presentation_search
 
-import com.david.domain.entity.Result
-import com.david.domain.usecase.SearchObjectsUseCase
+import androidx.lifecycle.SavedStateHandle
+import com.david.domain.entity.SearchResult
+import com.david.domain.usecase.GetSearchObjectsUseCase
 import com.david.metropolitanmuseumofart.presentation_common.state.UiState
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
@@ -20,10 +21,8 @@ class SearchViewModelTest {
     private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
 
     @RelaxedMockK
-    private lateinit var useCase: SearchObjectsUseCase
+    private lateinit var useCase: GetSearchObjectsUseCase
 
-    @RelaxedMockK
-    private lateinit var converter: SearchedListConverter
     private lateinit var viewModel: SearchViewModel
 
     @ExperimentalCoroutinesApi
@@ -31,7 +30,7 @@ class SearchViewModelTest {
     fun setUp() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testDispatcher)
-        viewModel = SearchViewModel(useCase, converter)
+        viewModel = createSearchViewModel()
     }
 
     @ExperimentalCoroutinesApi
@@ -44,32 +43,36 @@ class SearchViewModelTest {
     @ExperimentalCoroutinesApi
     @Test
     fun testSearch() {
-        assertEquals(UiState.Idle, viewModel.searchedListFlow.value)
+        assertEquals(SearchResultUiState.EmptyQuery, viewModel.searchResultUiState.value)
         val searchQuery = "sunflower"
         val uiState = mockk<UiState<SearchedListModel>>()
-        val result = mockk<Result<SearchObjectsUseCase.Response>>()
-        every { useCase.execute(SearchObjectsUseCase.Request(searchQuery)) } returns flowOf(result)
-        every { converter.convert(result) } returns uiState
-        viewModel.search(searchQuery)
-        assertEquals(uiState, viewModel.searchedListFlow.value)
+        val result = mockk<SearchResult>()
+        every { useCase(searchQuery) } returns flowOf(result)
+        viewModel.onSearchQueryChanged(searchQuery)
+        assertEquals(uiState, viewModel.searchResultUiState.value)
     }
 
     @ExperimentalCoroutinesApi
     @Test
     fun testSearch_ifSearchQueryIsEmpty_thenUseCaseMustNotBeExecuted() {
-        assertEquals(UiState.Idle, viewModel.searchedListFlow.value)
+        assertEquals(SearchResultUiState.EmptyQuery, viewModel.searchResultUiState.value)
         val searchQuery = ""
-        viewModel.search(searchQuery)
-        verify(exactly = 0) { useCase.execute(SearchObjectsUseCase.Request(searchQuery)) }
+        viewModel.onSearchQueryChanged(searchQuery)
+        verify(exactly = 0) { useCase(searchQuery) }
     }
 
     @ExperimentalCoroutinesApi
     @Test
     fun testSearch_ifLengthOfSearchQueryIsLessThanThreeCharacter_thenUseCaseMustNotBeExecuted() {
-        assertEquals(UiState.Idle, viewModel.searchedListFlow.value)
+        assertEquals(SearchResultUiState.EmptyQuery, viewModel.searchResultUiState.value)
         val searchQuery = "as"
-        viewModel.search(searchQuery)
-        verify(exactly = 0) { useCase.execute(SearchObjectsUseCase.Request(searchQuery)) }
+        viewModel.onSearchQueryChanged(searchQuery)
+        verify(exactly = 0) { useCase(searchQuery) }
+    }
+
+    private fun createSearchViewModel() : SearchViewModel {
+        val savedStateHandle = SavedStateHandle()
+        return SearchViewModel(useCase, savedStateHandle)
     }
 
 }

@@ -45,10 +45,10 @@ dependencies {
     implementation(project(path: ":presentation-detail"))
     implementation(project(path: ":presentation-search"))
     implementation(project(path: ":presentation-common"))
-    implementation(project(path: ":domain"))
-    implementation(project(path: ":data-remote"))
-    implementation(project(path: ":data-local"))
-    implementation(project(path: ":data-repository"))
+    implementation(project(path: ":core:domain"))
+    implementation(project(path: ":core:data-remote"))
+    implementation(project(path: ":core:data-local"))
+    implementation(project(path: ":core:data-repository"))
 
     implementation di.hiltAndroid
     kapt di.hiltCompiler

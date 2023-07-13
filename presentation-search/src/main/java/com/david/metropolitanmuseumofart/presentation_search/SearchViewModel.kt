@@ -1,53 +1,61 @@
 package com.david.metropolitanmuseumofart.presentation_search
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.david.domain.usecase.SearchObjectsUseCase
-import com.david.metropolitanmuseumofart.presentation_common.state.UiState
+import com.david.core.common.result.Result
+import com.david.core.common.result.asResult
+import com.david.domain.usecase.GetSearchObjectsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val searchObjectsUseCase: SearchObjectsUseCase,
-    private val searchedListConverter: SearchedListConverter
+    private val getSearchObjectsUseCase: GetSearchObjectsUseCase,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val minimumLengthToStartSearchProcess = 3
-    private val _searchedListFlow = MutableStateFlow<UiState<SearchedListModel>>(UiState.Idle)
-    val searchedListFlow: StateFlow<UiState<SearchedListModel>> = _searchedListFlow
-    private val _searchQuery = MutableStateFlow("")
+    private val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
 
-    init {
-        viewModelScope.launch {
-            _searchQuery
-                .filter {
-                    it.length >= minimumLengthToStartSearchProcess
-                }
-                .debounce(500)
-                .distinctUntilChanged()
-                .collect { searchQuery ->
-                    startNewSearch(searchQuery)
-                }
-        }
-    }
+    val searchResultUiState: StateFlow<SearchResultUiState> = searchQuery.flatMapLatest { query ->
+        if (query.length < SEARCH_QUERY_MIN_LENGTH) {
+            flowOf(SearchResultUiState.EmptyQuery)
+        } else {
+            getSearchObjectsUseCase(query).asResult().map {
+                when (it) {
+                    is Result.Success -> {
+                        SearchResultUiState.Success(
+                            totalItems = it.data.total,
+                            items = it.data.objectIDs
+                        )
+                    }
 
-    private fun startNewSearch(searchQuery: String) = viewModelScope.launch {
-        _searchedListFlow.value = UiState.Loading
-        searchObjectsUseCase.execute(SearchObjectsUseCase.Request(searchQuery))
-            .map {
-                searchedListConverter.convert(it)
-            }.collect {
-                _searchedListFlow.value = it
+                    is Result.Loading -> {
+                        SearchResultUiState.Loading
+                    }
+
+                    is Result.Error -> {
+                        SearchResultUiState.LoadFailed(it.exception?.message ?: "")
+                    }
+                }
             }
-    }
-
-    fun onSearchQueryChange(searchQuery: String) {
-        if (searchQuery.length >= minimumLengthToStartSearchProcess) {
-            _searchQuery.value = searchQuery
         }
-    }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = SearchResultUiState.EmptyQuery
+    )
 
+    fun onSearchQueryChanged(query: String) {
+        savedStateHandle[SEARCH_QUERY] = query
+    }
 }
+
+private const val SEARCH_QUERY = "searchQuery"
+private const val SEARCH_QUERY_MIN_LENGTH = 3

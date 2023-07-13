@@ -101,11 +101,6 @@ buildscript {
                 espressoCore: "androidx.test.espresso:espresso-core:${versions.espressoCore}"
         ]
     }
-
-    repositories {
-        google()
-        mavenCentral()
-    }
 }
 
 plugins {

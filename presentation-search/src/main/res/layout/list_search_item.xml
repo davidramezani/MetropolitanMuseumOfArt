@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.david.metropolitanmuseumofart.presentation_search.SearchedListItemModel" />
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/tv_search_item_title"
             app:layout_constraintTop_toTopOf="@id/tv_search_item_title"
-            android:text="@{String.valueOf(item.id)}"
+            android:text="@{String.valueOf(item)}"
             tools:text="1200" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,16 +6,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.david.metropolitanmuseumofart.presentation_search.R
 import com.david.metropolitanmuseumofart.presentation_search.databinding.ListSearchItemBinding
 
 class SearchListAdapter(
     private val onListeners: OnListeners,
-) : ListAdapter<SearchedListItemModel, SearchListAdapter.ViewHolder>(MyItemDiffCallback()) {
+) : ListAdapter<Int, SearchListAdapter.ViewHolder>(MyItemDiffCallback()) {
 
     class ViewHolder(private val binding: ListSearchItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: SearchedListItemModel) {
+        fun bind(item: Int) {
             binding.item = item
             binding.executePendingBindings()
         }
@@ -42,31 +41,31 @@ class SearchListAdapter(
         return currentList.size
     }
 
-    class MyItemDiffCallback : DiffUtil.ItemCallback<SearchedListItemModel>() {
+    class MyItemDiffCallback : DiffUtil.ItemCallback<Int>() {
         override fun areItemsTheSame(
-            oldItem: SearchedListItemModel,
-            newItem: SearchedListItemModel
+            oldItem: Int,
+            newItem: Int
         ): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: SearchedListItemModel,
-            newItem: SearchedListItemModel
+            oldItem: Int,
+            newItem: Int
         ): Boolean {
             return oldItem == newItem
         }
     }
 
     override fun onCurrentListChanged(
-        previousList: MutableList<SearchedListItemModel>,
-        currentList: MutableList<SearchedListItemModel>
+        previousList: MutableList<Int>,
+        currentList: MutableList<Int>
     ) {
         super.onCurrentListChanged(previousList, currentList)
     }
 
     interface OnListeners {
-        fun onItemClick(item: SearchedListItemModel)
+        fun onItemClick(item: Int)
         fun onListChange()
     }
 

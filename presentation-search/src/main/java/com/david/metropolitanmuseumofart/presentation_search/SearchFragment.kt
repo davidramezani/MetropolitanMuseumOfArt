@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.david.metropolitanmuseumofart.presentation_common.extensions.collectLatestLifecycleFlow
-import com.david.metropolitanmuseumofart.presentation_common.state.UiState
 import com.david.metropolitanmuseumofart.presentation_search.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,12 +26,8 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        binding.apply {
-            lifecycleOwner = viewLifecycleOwner
-            vm = viewModel
-        }
         return binding.root
     }
 
@@ -45,9 +40,10 @@ class SearchFragment : Fragment() {
 
     private fun setupRecyclerView() {
         searchListAdapter = SearchListAdapter(object : SearchListAdapter.OnListeners {
-            override fun onItemClick(item: SearchedListItemModel) {
-                findNavController().navigate("metropolitanmuseumofart.com://detail?objectId=${item.id}".toUri())
+            override fun onItemClick(item: Int) {
+                findNavController().navigate("metropolitanmuseumofart.com://detail?objectId=${item}".toUri())
             }
+
             override fun onListChange() {
                 resetPosition()
             }
@@ -57,23 +53,59 @@ class SearchFragment : Fragment() {
 
     private fun setSearchTextWatcher() {
         binding.etSearch.doOnTextChanged { text, _, _, _ ->
-            viewModel.onSearchQueryChange(text.toString())
+            viewModel.onSearchQueryChanged(text.toString())
         }
     }
 
     private fun observeUiState() {
-        collectLatestLifecycleFlow(viewModel.searchedListFlow) { uiState ->
-            if (uiState is UiState.Success) {
-                updateUI(uiState.data)
-                searchListAdapter.submitList(uiState.data.items)
-            } else if(uiState is UiState.Error) {
-                binding.tvErrorMessage.text = uiState.errorMessage
+        collectLatestLifecycleFlow(viewModel.searchResultUiState) { searchResultUiState ->
+            when (searchResultUiState) {
+                SearchResultUiState.EmptyQuery -> {
+                    binding.apply {
+                        tvSearchTotalResult.visibility = View.VISIBLE
+                        rvSearchedItemsSearchFragment.visibility = View.VISIBLE
+                        cpLoadingItems.visibility = View.GONE
+                        tvErrorMessage.visibility = View.GONE
+                        tvSearchTotalResult.text = getString(
+                            R.string.total_number_of_ids,
+                            "0"
+                        )
+                    }
+                }
+                SearchResultUiState.Loading -> {
+                    binding.apply {
+                        cpLoadingItems.visibility = View.VISIBLE
+                        tvSearchTotalResult.visibility = View.GONE
+                        rvSearchedItemsSearchFragment.visibility = View.GONE
+                        tvErrorMessage.visibility = View.GONE
+                    }
+                }
+
+                is SearchResultUiState.LoadFailed -> {
+                    binding.apply {
+                        tvErrorMessage.visibility = View.VISIBLE
+                        cpLoadingItems.visibility = View.GONE
+                        tvSearchTotalResult.visibility = View.GONE
+                        rvSearchedItemsSearchFragment.visibility = View.GONE
+                        tvErrorMessage.text = searchResultUiState.errorMessage
+                    }
+                }
+
+                is SearchResultUiState.Success -> {
+                    binding.apply {
+                        tvSearchTotalResult.visibility = View.VISIBLE
+                        rvSearchedItemsSearchFragment.visibility = View.VISIBLE
+                        cpLoadingItems.visibility = View.GONE
+                        tvErrorMessage.visibility = View.GONE
+                        tvSearchTotalResult.text = getString(
+                            R.string.total_number_of_ids,
+                            searchResultUiState.totalItems.toString()
+                        )
+                    }
+                    searchListAdapter.submitList(searchResultUiState.items)
+                }
             }
         }
-    }
-
-    private fun updateUI(searchedListModel: SearchedListModel) {
-        binding.tvSearchTotalResult.text = searchedListModel.totalItems
     }
 
     private fun resetPosition() {
