@@ -3,17 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="vm"
-            type="com.david.metropolitanmuseumofart.presentation_detail.DetailViewModel" />
-
-        <import type="com.david.metropolitanmuseumofart.presentation_common.state.UiState" />
-
-        <import type="android.view.View" />
-
-    </data>
+    <data/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,14 +23,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back"
             android:elevation="5dp"
-            android:background="@drawable/circle_background"
-            android:onClick="@{() -> vm.backIconClicked()}"/>
+            android:background="@drawable/circle_background"/>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_image_slider"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:visibility="@{vm.museumObjectFlow instanceof UiState.Success ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/text_background_shadow"
-            android:visibility="@{vm.museumObjectFlow instanceof UiState.Success ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/vp_image_slider"
             tools:ignore="ContentDescription" />
 
@@ -72,16 +59,15 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:textColor="?colorOnPrimary"
             android:textSize="18sp"
-            android:visibility="@{vm.museumObjectFlow instanceof UiState.Success ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/imv_title_background_shadow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/imv_title_background_shadow"
             tools:text="Botanical dish with white sunflower" />
 
         <ScrollView
+            android:id="@+id/sv_museum_object_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{vm.museumObjectFlow instanceof UiState.Success ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toBottomOf="@id/imv_title_background_shadow">
 
             <LinearLayout
@@ -190,10 +176,10 @@
         </ScrollView>
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/cp_loading_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="@{vm.museumObjectFlow instanceof UiState.Loading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -203,7 +189,6 @@
             android:id="@+id/tv_error_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{vm.museumObjectFlow instanceof UiState.Error ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

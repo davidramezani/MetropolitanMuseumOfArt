@@ -35,6 +35,8 @@ android {
 }
 
 dependencies {
+    implementation(project(path: ":core:common"))
+    implementation(project(path: ":core:data-local"))
     implementation(project(path: ":core:domain"))
     implementation coroutines.coroutinesAndroid
     implementation di.hiltAndroid

@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.david.core.data_local.db.detail.DetailDao
 import com.david.core.data_local.db.detail.MuseumObjectEntity
 
-@Database(entities = [MuseumObjectEntity::class], version = 1, exportSchema = true)
+@Database(entities = [MuseumObjectEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
