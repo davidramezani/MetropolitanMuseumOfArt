@@ -10,12 +10,10 @@ import com.david.metropolitanmuseumofart.presentation_common.state.UiSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,12 +35,7 @@ class DetailViewModel @Inject constructor(
     }
 
     fun getMuseumObject() {
-        viewModelScope.launch {
-            getObjectDetailUseCase(objectId).collectLatest {
-                _museumObjectUiState.value = MuseumObjectUiState.Success(it)
-            }
-        }
-        /*getObjectDetailUseCase(objectId).asResult().map {
+        getObjectDetailUseCase(objectId).asResult().map {
             when (it) {
                 is Result.Success -> {
                     _museumObjectUiState.value = MuseumObjectUiState.Success(it.data)
@@ -57,11 +50,9 @@ class DetailViewModel @Inject constructor(
                     _museumObjectUiState.value = MuseumObjectUiState.Loading
                 }
             }
-        }.stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5_000),
-            MuseumObjectUiState.Loading
-        )*/
+        }.launchIn(
+            viewModelScope
+        )
     }
 
     fun backIconClicked() {

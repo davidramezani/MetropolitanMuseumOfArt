@@ -10,4 +10,5 @@ class GetObjectDetailUseCase @Inject constructor(
 ) {
     operator fun invoke(objectId: Int): Flow<MuseumObject> =
         getObjectDetailRepository.getObjectDetail(objectId)
+
 }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface DetailDao {
 
     @Query("SELECT * FROM museum_object WHERE objectID=:objectId")
-    fun getObjectDetail(objectId: Int): Flow<MuseumObjectEntity>
+    fun getObjectDetail(objectId: Int): Flow<MuseumObjectEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertObjectDetail(museumObject: MuseumObjectEntity)
