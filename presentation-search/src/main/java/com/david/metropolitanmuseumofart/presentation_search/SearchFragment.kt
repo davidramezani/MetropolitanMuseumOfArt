@@ -14,7 +14,7 @@ import com.david.metropolitanmuseumofart.presentation_search.databinding.Fragmen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), View.OnClickListener {
 
     private val viewModel: SearchViewModel by viewModels()
     private var _binding: FragmentSearchBinding? = null
@@ -33,9 +33,14 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setOnClickListeners()
         setupRecyclerView()
         setSearchTextWatcher()
         observeUiState()
+    }
+
+    private fun setOnClickListeners() {
+        binding.retryBtn.setOnClickListener(this@SearchFragment)
     }
 
     private fun setupRecyclerView() {
@@ -65,29 +70,30 @@ class SearchFragment : Fragment() {
                         tvSearchTotalResult.visibility = View.VISIBLE
                         rvSearchedItemsSearchFragment.visibility = View.VISIBLE
                         cpLoadingItems.visibility = View.GONE
-                        tvErrorMessage.visibility = View.GONE
+                        grErrorElements.visibility = View.GONE
                         tvSearchTotalResult.text = getString(
                             R.string.total_number_of_ids,
                             "0"
                         )
                     }
                 }
+
                 SearchResultUiState.Loading -> {
                     binding.apply {
                         cpLoadingItems.visibility = View.VISIBLE
                         tvSearchTotalResult.visibility = View.GONE
                         rvSearchedItemsSearchFragment.visibility = View.GONE
-                        tvErrorMessage.visibility = View.GONE
+                        grErrorElements.visibility = View.GONE
                     }
                 }
 
                 is SearchResultUiState.LoadFailed -> {
                     binding.apply {
-                        tvErrorMessage.visibility = View.VISIBLE
+                        grErrorElements.visibility = View.VISIBLE
                         cpLoadingItems.visibility = View.GONE
                         tvSearchTotalResult.visibility = View.GONE
                         rvSearchedItemsSearchFragment.visibility = View.GONE
-                        tvErrorMessage.text = searchResultUiState.errorMessage
+                        tvErrorMessage.text = getString(searchResultUiState.errorMessage)
                     }
                 }
 
@@ -96,7 +102,7 @@ class SearchFragment : Fragment() {
                         tvSearchTotalResult.visibility = View.VISIBLE
                         rvSearchedItemsSearchFragment.visibility = View.VISIBLE
                         cpLoadingItems.visibility = View.GONE
-                        tvErrorMessage.visibility = View.GONE
+                        grErrorElements.visibility = View.GONE
                         tvSearchTotalResult.text = getString(
                             R.string.total_number_of_ids,
                             searchResultUiState.totalItems.toString()
@@ -110,6 +116,14 @@ class SearchFragment : Fragment() {
 
     private fun resetPosition() {
         binding.rvSearchedItemsSearchFragment.scrollToPosition(0)
+    }
+
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.retry_btn -> {
+                viewModel.retrySearch()
+            }
+        }
     }
 
     override fun onDestroyView() {
