@@ -45,7 +45,7 @@ class SearchViewModelTest {
     fun testSearch() {
         assertEquals(SearchResultUiState.EmptyQuery, viewModel.searchResultUiState.value)
         val searchQuery = "sunflower"
-        val uiState = mockk<UiState<SearchedListModel>>()
+        val uiState = mockk<UiState<SearchResultUiState>>()
         val result = mockk<SearchResult>()
         every { useCase(searchQuery) } returns flowOf(result)
         viewModel.onSearchQueryChanged(searchQuery)

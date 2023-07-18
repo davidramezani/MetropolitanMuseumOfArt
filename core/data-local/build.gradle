@@ -36,7 +36,6 @@ android {
 
 dependencies {
     implementation(project(path: ":core:domain"))
-    implementation(project(path: ":core:data-repository"))
     implementation coroutines.coroutinesAndroid
     implementation persistence.roomRuntime
     implementation persistence.roomKtx

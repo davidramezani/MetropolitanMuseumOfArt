@@ -13,5 +13,5 @@ interface DetailDao {
     fun getObjectDetail(objectId: Int): Flow<MuseumObjectEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertObjectDetail(museumObject: MuseumObjectEntity)
+    suspend fun insertObjectDetail(museumObject: MuseumObjectEntity)
 }
