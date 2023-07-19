@@ -14,7 +14,7 @@ import com.david.metropolitanmuseumofart.presentation_search.databinding.Fragmen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), View.OnClickListener {
+class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by viewModels()
     private var _binding: FragmentSearchBinding? = null
@@ -33,14 +33,9 @@ class SearchFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setOnClickListeners()
         setupRecyclerView()
         setSearchTextWatcher()
         observeUiState()
-    }
-
-    private fun setOnClickListeners() {
-        binding.retryBtn.setOnClickListener(this@SearchFragment)
     }
 
     private fun setupRecyclerView() {
@@ -76,6 +71,7 @@ class SearchFragment : Fragment(), View.OnClickListener {
                             "0"
                         )
                     }
+                    searchListAdapter.submitList(emptyList())
                 }
 
                 SearchResultUiState.Loading -> {
@@ -116,14 +112,6 @@ class SearchFragment : Fragment(), View.OnClickListener {
 
     private fun resetPosition() {
         binding.rvSearchedItemsSearchFragment.scrollToPosition(0)
-    }
-
-    override fun onClick(view: View) {
-        when (view.id) {
-            R.id.retry_btn -> {
-                viewModel.retrySearch()
-            }
-        }
     }
 
     override fun onDestroyView() {

@@ -8,16 +8,12 @@ import com.david.core.common.result.asResult
 import com.david.core.common.result.getMessage
 import com.david.domain.usecase.GetSearchObjectsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,9 +24,8 @@ class SearchViewModel @Inject constructor(
 
     private val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
 
-    @OptIn(FlowPreview::class)
     val searchResultUiState: StateFlow<SearchResultUiState> =
-        searchQuery.debounce(500).flatMapLatest { query ->
+        searchQuery.flatMapLatest { query ->
             if (query.length < SEARCH_QUERY_MIN_LENGTH) {
                 flowOf(SearchResultUiState.EmptyQuery)
             } else {
@@ -64,13 +59,6 @@ class SearchViewModel @Inject constructor(
 
     fun onSearchQueryChanged(query: String) {
         savedStateHandle[SEARCH_QUERY] = query
-    }
-
-    fun retrySearch() = viewModelScope.launch {
-        val lastSearchQuery = savedStateHandle.get<String>(SEARCH_QUERY)
-        savedStateHandle[SEARCH_QUERY] = ""
-        delay(100)
-        savedStateHandle[SEARCH_QUERY] = lastSearchQuery
     }
 }
 
