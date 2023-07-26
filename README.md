@@ -14,7 +14,7 @@ The solution is designed using the latest tools and libraries, following the MVV
 ### The basic flow looks like this :
 
 <p align="center">
- <img src='https://github.com/davidramezani/MetropolitanMuseumOfArt/blob/develop/images/data_flow.png' width='500'>
+ <img src='https://github.com/davidramezani/MetropolitanMuseumOfArt/blob/main/images/data_flow.png' width='500'>
 </p>
 
 The Repository layer is responsible for managing data operations, including data storage and retrieval from multiple sources. It abstracts the data sources from the rest of the app, ensuring clean separation of concerns.
