@@ -33,7 +33,7 @@ The domain layer acts as a bridge between the data and presentation layers, exec
 * MVVM
 
 ## Future Work:
-* Add UI Tests
-* Add Other types of Exception For Network & Database Errors
-* Display proper error messages related to exceptions
-* Add filter Items for search API for a better result
+- [ ] Add UI Tests
+- [x] Add Other types of Exception For Network & Database Errors
+- [x] Display proper error messages related to exceptions
+- [ ] Add filter Items for search API for a better result
