@@ -37,7 +37,10 @@ class DetailFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setupUI() {
-        binding.imvBackIcon.setOnClickListener(this)
+        binding.apply {
+            imvBackIcon.setOnClickListener(this@DetailFragment)
+            btnRetry.setOnClickListener(this@DetailFragment)
+        }
     }
 
     private fun observeUiState() {
@@ -46,12 +49,15 @@ class DetailFragment : Fragment(), View.OnClickListener {
                 is MuseumObjectUiState.LoadFailed -> {
                     binding.apply {
                         tvErrorMessage.visibility = View.VISIBLE
+                        btnRetry.visibility = View.VISIBLE
                         cpLoadingDetail.visibility = View.GONE
                         svMuseumObjectDetail.visibility = View.GONE
                         vpImageSlider.visibility = View.GONE
                         indicator.visibility = View.GONE
                         imvTitleBackgroundShadow.visibility = View.GONE
                         tvObjectTitle.visibility = View.GONE
+
+                        tvErrorMessage.text = getString(museumObjectUiState.errorMessage)
                     }
                 }
 
@@ -64,6 +70,7 @@ class DetailFragment : Fragment(), View.OnClickListener {
                         imvTitleBackgroundShadow.visibility = View.GONE
                         tvObjectTitle.visibility = View.GONE
                         tvErrorMessage.visibility = View.GONE
+                        btnRetry.visibility = View.GONE
                     }
                 }
 
@@ -106,6 +113,10 @@ class DetailFragment : Fragment(), View.OnClickListener {
         when (view.id) {
             R.id.imv_back_icon -> {
                 viewModel.backIconClicked()
+            }
+
+            R.id.btn_retry -> {
+                viewModel.getMuseumObject()
             }
         }
     }

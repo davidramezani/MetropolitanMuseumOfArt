@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.core.common.result.Result
 import com.david.core.common.result.asResult
+import com.david.core.common.result.getMessage
 import com.david.domain.usecase.GetObjectDetailUseCase
 import com.david.metropolitanmuseumofart.presentation_common.state.UiSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,7 +44,10 @@ class DetailViewModel @Inject constructor(
 
                 is Result.Error -> {
                     _museumObjectUiState.value =
-                        MuseumObjectUiState.LoadFailed(it.exception?.message ?: "")
+                        MuseumObjectUiState.LoadFailed(
+                            it.exception?.getMessage()
+                                ?: com.david.core.common.R.string.unknown_error
+                        )
                 }
 
                 Result.Loading -> {
