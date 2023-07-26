@@ -65,29 +65,31 @@ class SearchFragment : Fragment() {
                         tvSearchTotalResult.visibility = View.VISIBLE
                         rvSearchedItemsSearchFragment.visibility = View.VISIBLE
                         cpLoadingItems.visibility = View.GONE
-                        tvErrorMessage.visibility = View.GONE
+                        grErrorElements.visibility = View.GONE
                         tvSearchTotalResult.text = getString(
                             R.string.total_number_of_ids,
                             "0"
                         )
                     }
+                    searchListAdapter.submitList(emptyList())
                 }
+
                 SearchResultUiState.Loading -> {
                     binding.apply {
                         cpLoadingItems.visibility = View.VISIBLE
                         tvSearchTotalResult.visibility = View.GONE
                         rvSearchedItemsSearchFragment.visibility = View.GONE
-                        tvErrorMessage.visibility = View.GONE
+                        grErrorElements.visibility = View.GONE
                     }
                 }
 
                 is SearchResultUiState.LoadFailed -> {
                     binding.apply {
-                        tvErrorMessage.visibility = View.VISIBLE
+                        grErrorElements.visibility = View.VISIBLE
                         cpLoadingItems.visibility = View.GONE
                         tvSearchTotalResult.visibility = View.GONE
                         rvSearchedItemsSearchFragment.visibility = View.GONE
-                        tvErrorMessage.text = searchResultUiState.errorMessage
+                        tvErrorMessage.text = getString(searchResultUiState.errorMessage)
                     }
                 }
 
@@ -96,7 +98,7 @@ class SearchFragment : Fragment() {
                         tvSearchTotalResult.visibility = View.VISIBLE
                         rvSearchedItemsSearchFragment.visibility = View.VISIBLE
                         cpLoadingItems.visibility = View.GONE
-                        tvErrorMessage.visibility = View.GONE
+                        grErrorElements.visibility = View.GONE
                         tvSearchTotalResult.text = getString(
                             R.string.total_number_of_ids,
                             searchResultUiState.totalItems.toString()

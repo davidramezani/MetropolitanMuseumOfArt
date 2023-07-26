@@ -5,4 +5,5 @@
     <string name="artist_label">Artist : </string>
     <string name="artist_bio_label">Artist Bio : </string>
     <string name="medium_label">Medium : </string>
+    <string name="label_retry">Retry</string>
 </resources>
