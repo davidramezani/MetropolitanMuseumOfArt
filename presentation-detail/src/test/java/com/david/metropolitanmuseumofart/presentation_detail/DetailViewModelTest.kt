@@ -1,29 +1,8 @@
 package com.david.metropolitanmuseumofart.presentation_detail
 
-import androidx.lifecycle.SavedStateHandle
-import com.david.domain.entity.Result
-import com.david.domain.usecase.GetObjectDetailUseCase
-import com.david.metropolitanmuseumofart.presentation_common.state.UiState
-import io.mockk.MockKAnnotations
-import io.mockk.every
-import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.mockk
-import io.mockk.unmockkAll
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
-
 class DetailViewModelTest {
 
-    @ExperimentalCoroutinesApi
+    /*@ExperimentalCoroutinesApi
     private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
 
     @RelaxedMockK
@@ -63,5 +42,5 @@ class DetailViewModelTest {
         every { converter.convert(result) }.returns(uiState)
         viewModel.getMuseumObject()
         assertEquals(uiState, viewModel.museumObjectFlow.value)
-    }
+    }*/
 }

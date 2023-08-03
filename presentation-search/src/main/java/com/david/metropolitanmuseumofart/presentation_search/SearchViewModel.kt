@@ -3,6 +3,7 @@ package com.david.metropolitanmuseumofart.presentation_search
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.david.core.common.R
 import com.david.core.common.result.Result
 import com.david.core.common.result.asResult
 import com.david.core.common.result.getMessage
@@ -45,7 +46,7 @@ class SearchViewModel @Inject constructor(
                         is Result.Error -> {
                             SearchResultUiState.LoadFailed(
                                 it.exception?.getMessage()
-                                    ?: com.david.core.common.R.string.unknown_error
+                                    ?: R.string.unknown_error
                             )
                         }
                     }

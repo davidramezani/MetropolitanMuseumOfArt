@@ -3,6 +3,7 @@ package com.david.metropolitanmuseumofart.presentation_detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.david.core.common.R
 import com.david.core.common.result.Result
 import com.david.core.common.result.asResult
 import com.david.core.common.result.getMessage
@@ -46,7 +47,7 @@ class DetailViewModel @Inject constructor(
                     _museumObjectUiState.value =
                         MuseumObjectUiState.LoadFailed(
                             it.exception?.getMessage()
-                                ?: com.david.core.common.R.string.unknown_error
+                                ?: R.string.unknown_error
                         )
                 }
 

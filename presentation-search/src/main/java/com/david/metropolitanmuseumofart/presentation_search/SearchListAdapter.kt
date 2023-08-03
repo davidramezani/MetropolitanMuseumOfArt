@@ -61,6 +61,7 @@ class SearchListAdapter(
         previousList: MutableList<Int>,
         currentList: MutableList<Int>
     ) {
+        onListeners.onListChange()
         super.onCurrentListChanged(previousList, currentList)
     }
 
